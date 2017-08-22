@@ -1,6 +1,6 @@
 {
-  "name": "react-webapp",
-  "version": "1.0.0",
+  "name": "react-iso",
+  "version": "1.0.1",
   "description": "A boilerplate for react project, with latest packages",
   "main": "index.js",
   "scripts": {
@@ -39,8 +39,8 @@
     "webpack-dev-server": "^2.7.1"
   },
   "repository": {
-    "type": "git",
-    "url": "git://"
+    "type": "https",
+    "url": "https://github.com/12d/react-webapp.git"
   },
   "keywords": [
     "react",
