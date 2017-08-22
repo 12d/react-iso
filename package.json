@@ -1,0 +1,52 @@
+{
+  "name": "react-webapp",
+  "version": "1.0.0",
+  "description": "A boilerplate for react project, with latest packages",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --ext .js,.jsx src",
+    "dev": "webpack-dev-server --config webpack.config.dev.js",
+    "build": "webpack --config webpack.config.prod.js"
+  },
+  "author": "Len",
+  "license": "ISC",
+  "dependencies": {
+    "prop-types": "^15.5.7-alpha.1",
+    "react": "^16.0.0-beta.5",
+    "react-dom": "^16.0.0-beta.5",
+    "react-router": "^4.1.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "css-loader": "^0.28.5",
+    "eslint": "^4.5.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-html": "^3.2.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "file-loader": "^0.11.2",
+    "html-webpack-plugin": "^2.30.1",
+    "react-hot-loader": "next",
+    "style-loader": "^0.18.2",
+    "url-loader": "^0.5.9",
+    "webpack": "^3.5.5",
+    "webpack-dev-server": "^2.7.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://"
+  },
+  "keywords": [
+    "react",
+    "server-render",
+    "ssr",
+    "redux",
+    "webpack"
+  ]
+}
