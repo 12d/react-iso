@@ -9,11 +9,11 @@ const webpack = require('webpack');
 
 module.exports = {
     entry: [
-        './src/index.client.js'
+        './src/index.server.js'
     ],
-    target: 'web',
+    target: 'node',
     output: {
-        filename: '[name].[hash:4].js',
+        filename: '[name].js',
         chunkFilename: '[name].[chunkhash:4].js',
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/'
@@ -27,10 +27,6 @@ module.exports = {
                     loader: 'babel-loader'
                 },
                 exclude: /(node_modules|bower_components)/
-            },
-            {
-                test: /\/pages\/.*\.jsx?/, //pages下的都用bundle-loader加载
-                use: ['bundle-loader?lazy','babel-loader']
             },
             //css加载
             // {

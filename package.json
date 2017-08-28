@@ -6,7 +6,12 @@
   "scripts": {
     "lint": "eslint --ext .js,.jsx src",
     "dev": "webpack-dev-server --config webpack.config.dev.js",
-    "build": "webpack --config webpack.config.prod.js"
+    "start": "webpack-dev-server --config webpack.config.dev.js",
+    "build": "webpack --config webpack.config.dev.js",
+    "buildseo": "webpack --config webpack.config.seo.js",
+    "seo": "node ./cli/ssr",
+    "bundle": "webpack --config webpack.config.dev.js",
+    "test": "jest"
   },
   "author": "Len",
   "license": "ISC",
@@ -14,14 +19,17 @@
     "prop-types": "^15.5.7-alpha.1",
     "react": "^16.0.0-beta.5",
     "react-dom": "^16.0.0-beta.5",
-    "react-router": "^4.1.2"
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.3",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.6.0",
+    "bundle-loader": "^0.5.5",
     "css-loader": "^0.28.5",
     "eslint": "^4.5.0",
     "eslint-config-standard": "^10.2.1",
@@ -32,15 +40,27 @@
     "eslint-plugin-standard": "^3.0.1",
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.30.1",
+    "jest": "^20.0.4",
+    "jest-cli": "^20.0.4",
     "react-hot-loader": "next",
+    "react-test-renderer": "^16.0.0-beta.5",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
     "webpack": "^3.5.5",
     "webpack-dev-server": "^2.7.1"
   },
+  "jest": {
+    "setupFiles": [
+      "./jest/setup.js"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**"
+    ]
+  },
   "repository": {
     "type": "https",
-    "url": "https://github.com/12d/react-webapp.git"
+    "url": "https://github.com/12d/react-iso.git"
   },
   "keywords": [
     "react",

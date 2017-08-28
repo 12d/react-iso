@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1503649829131" clover="3.2.0">
+  <project timestamp="1503649829132" name="All files">
+    <metrics statements="44" coveredstatements="0" conditionals="179" coveredconditionals="0" methods="61" coveredmethods="0" elements="284" coveredelements="0" complexity="0" loc="44" ncloc="44" packages="2" files="7" classes="7">
+      <package name="src">
+        <metrics statements="38" coveredstatements="0" conditionals="140" coveredconditionals="0" methods="44" coveredmethods="0"/>
+        <file name="App.js" path="/Users/chen/Documents/workspace/react-iso/src/App.js">
+          <metrics statements="11" coveredstatements="0" conditionals="33" coveredconditionals="0" methods="11" coveredmethods="0"/>
+          <line num="1" count="0" type="cond" truecount="0" falsecount="8"/>
+          <line num="5" count="0" type="stmt"/>
+          <line num="9" count="0" type="stmt"/>
+          <line num="13" count="0" type="stmt"/>
+          <line num="14" count="0" type="stmt"/>
+          <line num="15" count="0" type="stmt"/>
+          <line num="18" count="0" type="cond" truecount="0" falsecount="23"/>
+          <line num="24" count="0" type="stmt"/>
+          <line num="29" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="31" count="0" type="stmt"/>
+          <line num="34" count="0" type="stmt"/>
+        </file>
+        <file name="Detail.js" path="/Users/chen/Documents/workspace/react-iso/src/Detail.js">
+          <metrics statements="5" coveredstatements="0" conditionals="33" coveredconditionals="0" methods="10" coveredmethods="0"/>
+          <line num="1" count="0" type="cond" truecount="0" falsecount="8"/>
+          <line num="5" count="0" type="cond" truecount="0" falsecount="23"/>
+          <line num="8" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="9" count="0" type="stmt"/>
+          <line num="15" count="0" type="stmt"/>
+        </file>
+        <file name="Home.js" path="/Users/chen/Documents/workspace/react-iso/src/Home.js">
+          <metrics statements="6" coveredstatements="0" conditionals="33" coveredconditionals="0" methods="10" coveredmethods="0"/>
+          <line num="1" count="0" type="cond" truecount="0" falsecount="8"/>
+          <line num="5" count="0" type="stmt"/>
+          <line num="6" count="0" type="cond" truecount="0" falsecount="23"/>
+          <line num="11" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="13" count="0" type="stmt"/>
+          <line num="19" count="0" type="stmt"/>
+        </file>
+        <file name="List.js" path="/Users/chen/Documents/workspace/react-iso/src/List.js">
+          <metrics statements="6" coveredstatements="0" conditionals="33" coveredconditionals="0" methods="10" coveredmethods="0"/>
+          <line num="1" count="0" type="cond" truecount="0" falsecount="8"/>
+          <line num="5" count="0" type="stmt"/>
+          <line num="6" count="0" type="cond" truecount="0" falsecount="23"/>
+          <line num="11" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="13" count="0" type="stmt"/>
+          <line num="19" count="0" type="stmt"/>
+        </file>
+        <file name="index.client.js" path="/Users/chen/Documents/workspace/react-iso/src/index.client.js">
+          <metrics statements="5" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
+          <line num="5" count="0" type="stmt"/>
+          <line num="8" count="0" type="stmt"/>
+          <line num="9" count="0" type="stmt"/>
+          <line num="10" count="0" type="cond" truecount="0" falsecount="4"/>
+          <line num="13" count="0" type="stmt"/>
+        </file>
+        <file name="index.server.js" path="/Users/chen/Documents/workspace/react-iso/src/index.server.js">
+          <metrics statements="5" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
+          <line num="5" count="0" type="stmt"/>
+          <line num="9" count="0" type="stmt"/>
+          <line num="10" count="0" type="stmt"/>
+          <line num="11" count="0" type="cond" truecount="0" falsecount="4"/>
+          <line num="14" count="0" type="stmt"/>
+        </file>
+      </package>
+      <package name="src.common">
+        <metrics statements="6" coveredstatements="0" conditionals="39" coveredconditionals="0" methods="17" coveredmethods="0"/>
+        <file name="AsyncComponent.js" path="/Users/chen/Documents/workspace/react-iso/src/common/AsyncComponent.js">
+          <metrics statements="6" coveredstatements="0" conditionals="39" coveredconditionals="0" methods="17" coveredmethods="0"/>
+          <line num="1" count="0" type="cond" truecount="0" falsecount="8"/>
+          <line num="42" count="0" type="stmt"/>
+          <line num="44" count="0" type="stmt"/>
+          <line num="47" count="0" type="cond" truecount="0" falsecount="23"/>
+          <line num="50" count="0" type="cond" truecount="0" falsecount="4"/>
+          <line num="51" count="0" type="cond" truecount="0" falsecount="4"/>
+        </file>
+      </package>
+    </metrics>
+  </project>
+</coverage>
