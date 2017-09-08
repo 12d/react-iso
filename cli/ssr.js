@@ -14,10 +14,12 @@ const numCPUs = require('os').cpus().length;
 var fs = require('fs');
 var url = require('url');
 var path = require('path');
-var React = require('react');
-var ReactRouter = require('react-router');
-var ReactDOM = require('react-dom/server');
-var StaticHandler = require('./static');
+//https 相关
+var http = require('http');
+var https = require('spdy');
+var privateKey  = fs.readFileSync(path.resolve(__dirname,'../temp/private.pem'), 'utf8');
+var certificate = fs.readFileSync(path.resolve(__dirname,'../temp/file.crt'), 'utf8');
+
 require('../dist/main');
 var htmlTemplate = fs.readFileSync(path.resolve(__dirname,'../dist','index.html'),'utf8');
 var htmlPrefixIndex = htmlTemplate.indexOf('<preload></preload>');
@@ -58,6 +60,18 @@ if (cluster.isMaster) {
         console.log(particialHTML);
         res.end(renderFullPage(particialHTML, {}));
     })
-    app.listen(5678);
+    //
+    var credentials = {key: privateKey, cert: certificate};
+
+    var httpServer = http.createServer(app);
+    var httpsServer = https.createServer(credentials, app);
+    var PORT = 5678;
+    var SSLPORT = 5679;
+    httpServer.listen(PORT, function() {
+        console.log('HTTP Server is running on: http://localhost:%s', PORT);
+    });
+    httpsServer.listen(SSLPORT, function() {
+        console.log('HTTPS Server is running on: https://localhost:%s', SSLPORT);
+    });
     console.log(`Worker ${process.pid} started`);
 }
