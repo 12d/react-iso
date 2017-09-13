@@ -1,6 +1,6 @@
 {
   "name": "react-iso",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A boilerplate for react project, with latest packages",
   "main": "index.js",
   "scripts": {
