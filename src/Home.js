@@ -8,13 +8,16 @@ import {
     Route,
     Link
 } from 'react-router-dom'
-export default class Home extends Component{
+import AnimatedWrapper from "./common/AnimatedWrapper";
+class Home extends Component{
     render(){
         return (
-            <div>
+            <div style={{backgroundColor:'yellow'}}>
                 <h1>首页</h1>
                 <Link to="/list">打开列表页</Link>
             </div>
         )
     }
 }
+
+export default AnimatedWrapper(Home)

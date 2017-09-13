@@ -4,17 +4,26 @@
  */
 import React, {Component} from 'react';
 import {
-    BrowserRouter as Router,
-    Route,
     Link
 } from 'react-router-dom'
-export default class List extends Component {
+import AnimatedWrapper from "./common/AnimatedWrapper";
+class List extends Component {
     render(){
         return (
-            <div>
+            <div style={{backgroundColor:'green'}}>
                 <h1>列表页</h1>
                 <Link to="/detail/1">打开详情页</Link>
             </div>
         )
     }
+    componentWillAppear(){
+        console.log('componentWillAppear')
+    }
+    componentWillEnter(){
+        console.log('componentWillEnter')
+    }
+    componentWillLeave(){
+        console.log('componentWillLeave')
+    }
 }
+export default AnimatedWrapper(List)

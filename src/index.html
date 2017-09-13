@@ -9,6 +9,47 @@
 <img src="http://s3a.pstatp.com/growth/mobile_detail/image/body_placeholder_181cc7e873c00b44ef4ad9089f2a64ac.png" class="body-placeholder" style="width:100%"/>
 <preload></preload>
 <style>
+    html,
+    body,
+    #app {
+        height: 100%;
+        width: 100%;
+    }
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+    }
+    .App {
+        position: relative;
+        display: flex;
+        flex-flow: column;
+    }
+    .TopBar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        width: 100%;
+        height: 62px;
+        padding: 0 24px;
+    }
+    .TopBar a {
+        margin-right: 18px;
+        text-decoration: none;
+    }
+    .animated-page-wrapper {
+        position: absolute;
+        top: 62px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .page {
+        padding: 0 24px;
+    }
     .body-placeholder{display: none;}
 </style>
 <div id="app">

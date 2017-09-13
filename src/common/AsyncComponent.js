@@ -3,7 +3,7 @@
  * @date 2017/8/25
  */
 import React, { Component } from 'react'
-
+import AnimatedWrapper from './AnimatedWrapper';
 class AsyncComponent extends Component {
     constructor(){
         super()
@@ -27,23 +27,30 @@ class AsyncComponent extends Component {
         })
         props.load((mod) => {
             this.setState({
-                // handle both es imports and cjs
-                mod: React.createElement(mod.default ? mod.default : mod, props.props)
+                mod: React.createElement(mod.default ? mod.default : mod, props)
             })
         })
     }
 
     render() {
-        return this.state.mod
+        return this.state.mod||<h2>加载中</h2>
     }
 }
 
 function isServerSide(){
-    return typeof window=='undefined';
+    return typeof window=='undefined'
 }
-
 export default function(loader){
     return isServerSide() ? loader : (props) => (
-        <AsyncComponent load={loader} props={props}/>
+        React.createElement(AnimatedWrapper(AsyncComponent), {
+            load: loader,
+            ...props
+        })
+
     )
 }
+// export default function(loader){
+//     return isServerSide() ? loader : (props) => (
+//         <AsyncComponent load={loader} props={props}/>
+//     )
+// }
