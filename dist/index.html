@@ -4,17 +4,135 @@
 <head>
     <meta charset="UTF-8">
     <title>模板</title>
-
-
 </head>
 <body>
-<!--<img src="http://s3a.pstatp.com/growth/mobile_detail/image/body_placeholder_181cc7e873c00b44ef4ad9089f2a64ac.png" class="body-placeholder" style="width:100%"/>-->
+<img src="http://s3a.pstatp.com/growth/mobile_detail/image/body_placeholder_181cc7e873c00b44ef4ad9089f2a64ac.png" class="body-placeholder" style="width:100%"/>
 <preload></preload>
 <style>
+    html,
+    body,
+    #app {
+        height: 100%;
+        width: 100%;
+    }
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+    }
+    .App {
+        position: relative;
+        display: flex;
+        flex-flow: column;
+    }
+    .TopBar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        width: 100%;
+        height: 62px;
+        padding: 0 24px;
+    }
+    .TopBar a {
+        margin-right: 18px;
+        text-decoration: none;
+    }
+    .animated-page-wrapper {
+        position: absolute;
+        top: 62px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .page {
+        padding: 0 24px;
+    }
     .body-placeholder{display: none;}
 </style>
-<div id="app">
+
+<!--<canvas id="myCanvas"/>-->
+<div id="app" style="margin-top:300px;">
+
 <viewstacks/>
+
 </div>
-<script type="text/javascript" src="/main.85ee.js"></script></body>
+<script>
+
+</script>
+<!--
+<script>
+
+    window.onerror=function(e){alert(e)}
+    window.onload=function(){
+        navigator.getUserMedia({
+            "video": true,
+            "audio": true
+        },function(stream){
+//            alert('x')
+            var video = document.getElementsByTagName('video')[0];
+//            alert(1)
+            video.srcObject=stream;
+//            alert(2)
+            video.src=URL.createObjectURL(stream);
+//            alert(3)
+            video.play();
+            video.controls=true;
+        },function(e){
+            alert(JSON.stringify(e))
+        })
+    }
+</script>
+-->
+<!--<script type="text/javascript">-->
+
+    <!--function dataURLtoBlob(dataurl) {-->
+        <!--var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],-->
+            <!--bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);-->
+        <!--while (n&#45;&#45;) {-->
+            <!--u8arr[n] = bstr.charCodeAt(n);-->
+        <!--}-->
+        <!--return new Blob([u8arr], { type: mime });-->
+    <!--}-->
+
+    <!--var c=document.getElementById("myCanvas");-->
+    <!--var cxt=c.getContext("2d");-->
+    <!--var grd=cxt.createLinearGradient(0,0,175,50);-->
+    <!--grd.addColorStop(0,"#FF0000");-->
+    <!--grd.addColorStop(1,"#00FF00");-->
+    <!--cxt.fillStyle=grd;-->
+    <!--cxt.fillRect(0,0,175,50);-->
+    <!--var img = new Image;-->
+    <!--var base64data  =c.toDataURL('image/jpeg');-->
+    <!--console.log(base64data);-->
+    <!--var imgData= new Blob([dataURLtoBlob(base64data)],{type:'image/webp'});-->
+    <!--console.log(imgData)-->
+    <!--var imgDataURL = URL.createObjectURL(imgData);-->
+    <!--////-->
+    <!--console.log(imgDataURL);-->
+    <!--var xhr = new XMLHttpRequest()-->
+    <!--xhr.responseType = 'blob'-->
+
+    <!--xhr.onload = function () {-->
+        <!--var recoveredBlob = xhr.response-->
+
+        <!--var reader = new FileReader()-->
+
+        <!--reader.onload = function () {-->
+            <!--img.src=reader.result;-->
+            <!--console.log(reader.result);-->
+            <!--document.body.appendChild(img)-->
+        <!--}-->
+
+        <!--reader.readAsDataURL(recoveredBlob)-->
+    <!--}-->
+
+    <!--xhr.open('GET', imgDataURL)-->
+    <!--xhr.send()-->
+    <!--////-->
+
+<!--</script>-->
+<script type="text/javascript" src="/main.js"></script></body>
 </html>

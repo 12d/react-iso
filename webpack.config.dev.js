@@ -89,7 +89,7 @@ module.exports = {
         hot: true, //打开 HMR
         contentBase: path.join(__dirname, "dist"),
         compress: true,
-        host: '10.194.11.62',
+        host: '127.0.0.1',
         port: 9000,
         // host: "192.168.0.18"
     }
