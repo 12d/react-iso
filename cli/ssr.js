@@ -58,6 +58,24 @@ if (cluster.isMaster) {
         res.status(200).write(htmlPrefix);
         let particialHTML = global.renderReact(req, context);
         console.log(particialHTML);
+        /**
+         * server push demo
+         */
+        var stream = res.push('/main.85ee.js', {
+            status: 200, // optional
+            method: 'GET', // optional
+            request: {
+                accept: '*/*'
+            },
+            response: {
+                'content-type': 'application/javascript'
+            }
+        })
+        stream.on('error', function(e) {
+            console.log(e)
+        })
+        stream.end(fs.readFileSync('dist/main.85ee.js','binary'))
+        // stream.end('console.log("end")');
         res.end(renderFullPage(particialHTML, {}));
     })
     //

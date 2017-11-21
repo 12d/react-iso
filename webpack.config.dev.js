@@ -9,8 +9,10 @@ const webpack = require('webpack');
 
 module.exports = {
     entry: [
+        'babel-polyfill',
         './src/index.client.js'
     ],
+
     target: 'web',
     output: {
         filename: '[name].[hash:4].js',
@@ -24,9 +26,9 @@ module.exports = {
             {
                 test: /\.jsx?$/,
                 use: {
-                    loader: 'babel-loader'
+                    loader: 'babel-loader',
                 },
-                exclude: /(node_modules|bower_components)/
+                exclude: path.resolve(__dirname, 'node_modules', 'animated')
             },
             {
                 test: /\/pages\/.*\.jsx?/, //pages下的都用bundle-loader加载
@@ -87,6 +89,7 @@ module.exports = {
         hot: true, //打开 HMR
         contentBase: path.join(__dirname, "dist"),
         compress: true,
+        host: '10.194.11.62',
         port: 9000,
         // host: "192.168.0.18"
     }

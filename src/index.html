@@ -52,8 +52,87 @@
     }
     .body-placeholder{display: none;}
 </style>
-<div id="app">
+
+<!--<canvas id="myCanvas"/>-->
+<div id="app" style="margin-top:300px;">
+
 <viewstacks/>
+
 </div>
+<script>
+
+</script>
+<!--
+<script>
+
+    window.onerror=function(e){alert(e)}
+    window.onload=function(){
+        navigator.getUserMedia({
+            "video": true,
+            "audio": true
+        },function(stream){
+//            alert('x')
+            var video = document.getElementsByTagName('video')[0];
+//            alert(1)
+            video.srcObject=stream;
+//            alert(2)
+            video.src=URL.createObjectURL(stream);
+//            alert(3)
+            video.play();
+            video.controls=true;
+        },function(e){
+            alert(JSON.stringify(e))
+        })
+    }
+</script>
+-->
+<!--<script type="text/javascript">-->
+
+    <!--function dataURLtoBlob(dataurl) {-->
+        <!--var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],-->
+            <!--bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);-->
+        <!--while (n&#45;&#45;) {-->
+            <!--u8arr[n] = bstr.charCodeAt(n);-->
+        <!--}-->
+        <!--return new Blob([u8arr], { type: mime });-->
+    <!--}-->
+
+    <!--var c=document.getElementById("myCanvas");-->
+    <!--var cxt=c.getContext("2d");-->
+    <!--var grd=cxt.createLinearGradient(0,0,175,50);-->
+    <!--grd.addColorStop(0,"#FF0000");-->
+    <!--grd.addColorStop(1,"#00FF00");-->
+    <!--cxt.fillStyle=grd;-->
+    <!--cxt.fillRect(0,0,175,50);-->
+    <!--var img = new Image;-->
+    <!--var base64data  =c.toDataURL('image/jpeg');-->
+    <!--console.log(base64data);-->
+    <!--var imgData= new Blob([dataURLtoBlob(base64data)],{type:'image/webp'});-->
+    <!--console.log(imgData)-->
+    <!--var imgDataURL = URL.createObjectURL(imgData);-->
+    <!--////-->
+    <!--console.log(imgDataURL);-->
+    <!--var xhr = new XMLHttpRequest()-->
+    <!--xhr.responseType = 'blob'-->
+
+    <!--xhr.onload = function () {-->
+        <!--var recoveredBlob = xhr.response-->
+
+        <!--var reader = new FileReader()-->
+
+        <!--reader.onload = function () {-->
+            <!--img.src=reader.result;-->
+            <!--console.log(reader.result);-->
+            <!--document.body.appendChild(img)-->
+        <!--}-->
+
+        <!--reader.readAsDataURL(recoveredBlob)-->
+    <!--}-->
+
+    <!--xhr.open('GET', imgDataURL)-->
+    <!--xhr.send()-->
+    <!--////-->
+
+<!--</script>-->
 </body>
 </html>
