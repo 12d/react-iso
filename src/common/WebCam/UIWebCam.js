@@ -24,7 +24,7 @@ class UIWebCam extends Component {
         )
     }
     videoOnError (e) {
-        debugger
+
     }
     constructor () {
         super();
@@ -38,9 +38,12 @@ class UIWebCam extends Component {
         this.prepare()
     }
     prepare () {
-        this.helper.getCamera(this.props.mediaOptions, (uri)=>{
+        this.helper.getCamera(this.props.mediaOptions, (uri,stream)=>{
             this.setState({
-                previewSource: uri
+                previewSource: uri || stream
+            },()=>{
+                //safari 11中 MediaStream必须通过srcObject指定，而react 16 beta中无法通过setState设置srcObject
+                this.refs.stage.srcObject = stream;
             })
         })
     }
@@ -74,8 +77,8 @@ class UIWebCam extends Component {
         mediaOptions: {
             "audio": true,
             "video": {
-                "height": 160,
-                "width": 120
+                "height": 720,
+                "width": 1280
             }
         }
     }

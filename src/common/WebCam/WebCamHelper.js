@@ -35,16 +35,17 @@ const mediaConstraints = {
 }
 
 const mediaRecorderOptions = {mimeType: 'video/webm;codecs="vp9,vp8"'}
-
+//navigator.getUserMedia已被新版弃用，被移至navigator.mediaDevices.getUserMedia上
+// @see https://developer.mozilla.org/zh-CN/docs/Web/API/MediaDevices
 if (!navigator.getUserMedia) {
     navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia
 }
 
 window.URL = window.URL || window.webkitURL || window.mozURL;
-const isNewerVersion = navigator.mediaDevices &&
+const isNewerVersion = !!navigator.mediaDevices &&
     navigator.mediaDevices.getUserMedia;
 
-var getCamera = (options) => false && isNewerVersion &&
+var getCamera = (options) => isNewerVersion &&
     navigator.mediaDevices.getUserMedia(options) ||
     navigator.getUserMedia && new Promise((resolve, reject) => {
         navigator.getUserMedia(options, (stream) => {
@@ -55,7 +56,7 @@ var getCamera = (options) => false && isNewerVersion &&
     });
 
 
-const isSupported = getCamera && window.URL && window.FileReader && MediaRecorder;
+const isSupported = !!(getCamera && window.URL && window.FileReader && MediaRecorder);
 
 var tempCanvas = document.createElement('canvas');
 var tempVideo = document.createElement('video');
@@ -75,6 +76,12 @@ export default class WebCamHelper {
         }
         return new Blob([u8arr], {type:mime});
     }
+
+    /**
+     * 方法中使用到的URL.createObjectURL, 在新版本浏览器的MediaStream上使用做了限制，可以用HTMLMediaElement.srcObject代替 @see https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLMediaElement/srcObject
+     * @param blob
+     * @returns {Promise}
+     */
     static blobToDataURL (blob) {
 
         return new Promise((resolve, reject) => {
@@ -121,6 +128,8 @@ export default class WebCamHelper {
 
             this.live = stream;
             cb && cb(this.getStreamURI(stream), stream)
+        }).catch(err=>{
+            console.log(err,this._adaptOptions(options))
         })
     }
     _adaptOptions(options){
@@ -142,8 +151,7 @@ export default class WebCamHelper {
         return options;
     }
     getStreamURI (stream) {
-        this._uri = URL.createObjectURL(stream);
-        return URL.createObjectURL(stream)
+        return "srcObject" in HTMLMediaElement.prototype ? null : URL.createObjectURL(stream)
     }
     snapshot (video) {
         var context,
