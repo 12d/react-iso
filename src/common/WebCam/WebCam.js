@@ -57,6 +57,7 @@ var getCamera = (options) => navigator.mediaDevices &&
     navigator.getUserMedia && new Promise((resolve, reject) => {
         navigator.webkitGetUserMedia(options, (stream) => {
             resolve(stream)
+            resolve(stream)
         }, (e) => {
             reject(e)
         })

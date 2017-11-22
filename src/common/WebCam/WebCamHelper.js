@@ -2,7 +2,7 @@
  *
  * @type {{audio: boolean, video: {optional: [null,null,null,null,null]}}}
  */
-// import MediaRecorder from "./MediaRecorder";
+let MediaRecorder  = window.MediaRecorder || require("./MediaRecorder").default;
 
 const mediaConstraints = {
     'audio': true,
@@ -33,6 +33,11 @@ const mediaConstraints = {
         ]
     }
 }
+window.onerror2 = function(e){
+    alert(window.MediaRecorder.isTypeSupported);
+    alert(navigator.mediaDevices.getUserMedia);
+    alert(e);
+}
 
 const mediaRecorderOptions = {mimeType: 'video/webm;codecs="vp9,vp8"'}
 
@@ -41,9 +46,10 @@ if (!navigator.getUserMedia) {
 }
 
 window.URL = window.URL || window.webkitURL || window.mozURL;
+const isNewerVersion = navigator.mediaDevices &&
+    navigator.mediaDevices.getUserMedia;
 
-var getCamera = (options) => navigator.mediaDevices &&
-    navigator.mediaDevices.getUserMedia &&
+var getCamera = (options) => isNewerVersion &&
     navigator.mediaDevices.getUserMedia(options) ||
     navigator.getUserMedia && new Promise((resolve, reject) => {
         navigator.webkitGetUserMedia(options, (stream) => {
@@ -54,7 +60,7 @@ var getCamera = (options) => navigator.mediaDevices &&
     });
 
 
-const isSupported = getCamera && window.URL && window.FileReader && window.MediaRecorder;
+const isSupported = true || getCamera && window.URL && window.FileReader && MediaRecorder;
 
 var tempCanvas = document.createElement('canvas');
 var tempVideo = document.createElement('video');
@@ -98,6 +104,15 @@ export default class WebCamHelper {
             xhr.send()
         })
     }
+    download (url) {
+
+        var a = document.createElement('a')
+        a.style.display = 'none'
+        a.href = url
+        a.download = 'test.webm'
+        document.body.appendChild(a)
+        a.click()
+    }
     releaseUserMedia () {
         this.live && this.live.getVideoTracks()[0].stop()
     }
@@ -106,11 +121,30 @@ export default class WebCamHelper {
     }
     getCamera (options, cb) {
         this.options = options;
+        /*必须.call(navigator)的方式去调用，否则手机端会报错*/
+        getCamera.call(navigator, this._adaptOptions(options)).then(stream=>{
 
-        getCamera(options).then(stream=>{
             this.live = stream;
             cb && cb(this.getStreamURI(stream), stream)
         })
+    }
+    _adaptOptions(options){
+        options = Object.assign({}, options);
+
+        var video = Object.assign({}, options.video),
+            height = video.height,
+            width = video.width;
+        if(!isNewerVersion) {
+            video.mandatory = {
+                "maxWidth": width,
+                "maxHeight": height
+            }
+            delete video.height;
+            delete video.width;
+            options.video = video;
+        }
+        console.log(options, 'options')
+        return options;
     }
     getStreamURI (stream) {
         this._uri = URL.createObjectURL(stream);
@@ -118,14 +152,14 @@ export default class WebCamHelper {
     }
     snapshot (video) {
         var context,
-            height = video.height,
-            width = video.width;
-
-        tempCanvas.height = height;
-        tempCanvas.width = width;
+            videoOptions = this.options.video;
+        tempCanvas.height = videoOptions.height;
+        tempCanvas.width = videoOptions.width;
 
         context = tempCanvas.getContext('2d');
-        context.drawImage(video, 0, 0, width, height);
+
+        context.drawImage(video, 0, 0, videoOptions.width, videoOptions.height);
+
         return tempCanvas.toDataURL()
     }
     _onRecordDataAvailable ({data}) {
@@ -133,7 +167,6 @@ export default class WebCamHelper {
         data && data.size > 0 && this._recordChunks.push(data);
     }
     _onRecordStop () {
-        console.log(this._recordChunks,'_recordChunks')
         if (this.__recordCompleteCallback){
             let dataBlob = new Blob(this._recordChunks, {
                 type: this._recorder.mimeType,
@@ -146,9 +179,14 @@ export default class WebCamHelper {
         }
 
     }
-    record () {
+
+    /**
+     *
+     * @param {HTMLElement} video 需要进行录制的video 元素，仅仅使用在浏览器端不支持MediaRecorder对象时
+     */
+    record (video) {
         // this._recordChunks = [];
-        this._recorder = new MediaRecorder(this.live, mediaRecorderOptions);
+        this._recorder = new MediaRecorder(this.live, mediaRecorderOptions, video);
         this._recorder.ondataavailable=this._onRecordDataAvailable.bind(this);
         this._recorder.onstop=this._onRecordStop.bind(this);
         this._recorder.start();
@@ -165,5 +203,6 @@ export default class WebCamHelper {
         }
 
     }
+
 
 }

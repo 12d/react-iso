@@ -5,18 +5,21 @@ const states = {
     PAUSED: 'paused'
 };
 class MediaRecorder {
-    constructor (stream, options) {
-        this.init(options)
+    constructor (stream, options, videoStage) {
+        console.log(stream, 'stream', options)
+        this.init(options);
+        this.videoStage = videoStage;
+
         this.mimeType = this.options.mimeType;
         this.stream = stream;
         this._prepareRecorder();
     }
     _prepareRecorder () {
         var stream = this.stream;
-        this._video = stream.source ? stream.source : document.createElement('video');
+        this._video = this.videoStage ? this.videoStage : document.createElement('video');
         this._canvas = document.createElement('canvas');
-        this._video.width = this._canvas.width=this.stream.width;
-        this._video.height = this._canvas.height=this.stream.height;
+        this._canvas.width= this._video.width;
+        this._canvas.height= this._video.height;
         this._canvasContext = this._canvas.getContext('2d');
         this._recorder = new Whammy.Video();
     }
@@ -42,7 +45,7 @@ class MediaRecorder {
          * mimeType for media
          * @type {string}
          */
-        mimeType: 'image/webm',
+        mimeType: 'video/webm;codecs="vp9,vp8"',
         bitsPerSecond: 128,
         audioBitsPerSecond: 128000,
         videoBitsPerSecond: 2500000
@@ -72,7 +75,7 @@ class MediaRecorder {
         this._timing = (+new Date);
         this._recordVideoFrame();
 
-        this._reconciler = setInterval(this._recordVideoFrame.bind(this), 1000/this.stream.fps);
+        this._reconciler = setInterval(this._recordVideoFrame.bind(this), 1000/30);
         this.onstart()
     }
     stop () {
@@ -80,7 +83,7 @@ class MediaRecorder {
         this.state = states.INACTIVE;
         var startTime = + new Date;
         this._recorder.compile(false, (webm)=>{
-            this.ondataavailable(webm);
+            this.ondataavailable({data:webm});
         });
         this.onstop();
     }
