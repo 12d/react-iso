@@ -33,11 +33,6 @@ const mediaConstraints = {
         ]
     }
 }
-window.onerror2 = function(e){
-    alert(window.MediaRecorder.isTypeSupported);
-    alert(navigator.mediaDevices.getUserMedia);
-    alert(e);
-}
 
 const mediaRecorderOptions = {mimeType: 'video/webm;codecs="vp9,vp8"'}
 
@@ -49,10 +44,10 @@ window.URL = window.URL || window.webkitURL || window.mozURL;
 const isNewerVersion = navigator.mediaDevices &&
     navigator.mediaDevices.getUserMedia;
 
-var getCamera = (options) => isNewerVersion &&
+var getCamera = (options) => false && isNewerVersion &&
     navigator.mediaDevices.getUserMedia(options) ||
     navigator.getUserMedia && new Promise((resolve, reject) => {
-        navigator.webkitGetUserMedia(options, (stream) => {
+        navigator.getUserMedia(options, (stream) => {
             resolve(stream)
         }, (e) => {
             reject(e)
@@ -60,7 +55,7 @@ var getCamera = (options) => isNewerVersion &&
     });
 
 
-const isSupported = true || getCamera && window.URL && window.FileReader && MediaRecorder;
+const isSupported = getCamera && window.URL && window.FileReader && MediaRecorder;
 
 var tempCanvas = document.createElement('canvas');
 var tempVideo = document.createElement('video');
@@ -70,7 +65,7 @@ var tempVideo = document.createElement('video');
  * @class helper for web camera
  */
 export default class WebCamHelper {
-    static isSupported = () => isSupported
+    static isSupported = () => isSupported;
     static dataURLtoBlob (dataurl) {
         var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
             bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
@@ -86,7 +81,7 @@ export default class WebCamHelper {
             var blobUrl = URL.createObjectURL(blob)
 
             var xhr = new XMLHttpRequest()
-            xhr.responseType = 'blob'
+            xhr.responseType = 'blob';
 
             xhr.onload = function () {
                 var recoveredBlob = xhr.response
@@ -163,7 +158,6 @@ export default class WebCamHelper {
         return tempCanvas.toDataURL()
     }
     _onRecordDataAvailable ({data}) {
-        console.log(data)
         data && data.size > 0 && this._recordChunks.push(data);
     }
     _onRecordStop () {

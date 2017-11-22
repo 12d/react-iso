@@ -510,7 +510,9 @@ var Whammy = (function(){
         if (typeof frame === "string" && !(/^data:image\/webp;base64,/ig).test(frame)) {
             throw "Input must be formatted properly as a base64 encoded DataURI of type image/webp";
         }
-
+        // var img = new Image();
+        // img.src=frame;
+        // document.body.appendChild(img)
         this.frames.push({
             image: frame,
             duration: ((+new Date)-duration) || this.duration

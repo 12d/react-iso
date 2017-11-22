@@ -35,6 +35,9 @@ class UIWebCam extends Component {
         }
     }
     componentDidMount () {
+        this.prepare()
+    }
+    prepare () {
         this.helper.getCamera(this.props.mediaOptions, (uri)=>{
             this.setState({
                 previewSource: uri
@@ -54,9 +57,16 @@ class UIWebCam extends Component {
             this.helper.releaseUserMedia();
 
             this.setState({
-                previewSource: uri,
                 isPlayback: true
+                // src: uri //TODO: 这行导致UC开发版本闪退
+            }, ()=>{
+                // 三星浏览器无法通过setState()来更新src，而chrome必须以setState
+                var video = this.refs.stage;
+                video.src=uri;
+                video.autoplay=true;
+                video.controls=true;
             })
+
 
         })
     }

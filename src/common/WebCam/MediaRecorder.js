@@ -88,9 +88,22 @@ class MediaRecorder {
         this.onstop();
     }
     _recordVideoFrame (timing) {
+        // var context,
+        //     videoOptions = this.options.video;
+        // tempCanvas.height = videoOptions.height;
+        // tempCanvas.width = videoOptions.width;
+        //
+        // context = tempCanvas.getContext('2d');
+        //
+        // context.drawImage(video, 0, 0, videoOptions.width, videoOptions.height);
+        //
+        // return tempCanvas.toDataURL()
+
+
         let video = this._video;
 
         this._canvasContext.drawImage(video, 0,0, video.width, video.height);
+        //执行toDataURL('image/webp')
         this._recorder.add(this._canvas, this._timing);
         this._timing = (+new Date);
     }
