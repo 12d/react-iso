@@ -2,7 +2,7 @@
  *
  * @type {{audio: boolean, video: {optional: [null,null,null,null,null]}}}
  */
-let MediaRecorder  = window.MediaRecorder || require("./MediaRecorder").default;
+let MediaRecorder  = false && window.MediaRecorder || require("./MediaRecorder").default;
 
 const mediaConstraints = {
     'audio': true,
@@ -55,7 +55,9 @@ var getCamera = (options) => isNewerVersion &&
         })
     });
 
-
+window.onerror=function(e){
+    alert(e)
+}
 const isSupported = !!(getCamera && window.URL && window.FileReader && MediaRecorder);
 
 var tempCanvas = document.createElement('canvas');
@@ -147,7 +149,7 @@ export default class WebCamHelper {
             delete video.width;
             options.video = video;
         }
-        console.log(options, 'options')
+
         return options;
     }
     getStreamURI (stream) {
@@ -156,13 +158,11 @@ export default class WebCamHelper {
     snapshot (video) {
         var context,
             videoOptions = this.options.video;
-        tempCanvas.height = videoOptions.height;
-        tempCanvas.width = videoOptions.width;
+        tempCanvas.height = videoOptions.height || video.videoHeight;
+        tempCanvas.width = videoOptions.width || video.videoWidth;
 
         context = tempCanvas.getContext('2d');
-
-        context.drawImage(video, 0, 0, videoOptions.width, videoOptions.height);
-
+        context.drawImage(video, 0, 0);
         return tempCanvas.toDataURL()
     }
     _onRecordDataAvailable ({data}) {

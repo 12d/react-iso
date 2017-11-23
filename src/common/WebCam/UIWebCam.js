@@ -12,7 +12,9 @@ class UIWebCam extends Component {
                 <h1>UIWebCam</h1>
                 {
                     this.state.previewSource ?
-                        <video autoPlay={true} onError={this.videoOnError.bind(this)} controls={this.state.isPlayback} src={this.state.previewSource} height={videoOptions.height} width={videoOptions.width} ref="stage" />
+                        // @see https://webkit.org/blog/6784/new-video-policies-for-ios/
+                        // ios 上必须加playsinline/muted/autoplay，否则ios上无法自动播放
+                        <video playsinline="true" muted={true} autoPlay={true} onError={this.videoOnError.bind(this)} controls={this.state.isPlayback} src={this.state.previewSource} height={videoOptions.height} width={videoOptions.width} ref="stage" />
                         : null
                 }
                 <button onClick={this.onCapture.bind(this)}>Capture</button>
@@ -35,9 +37,13 @@ class UIWebCam extends Component {
         }
     }
     componentDidMount () {
-        this.prepare()
+        this.prepare();
+
     }
     prepare () {
+        //alert(document.createElement('canvas').captureStream);
+
+
         this.helper.getCamera(this.props.mediaOptions, (uri,stream)=>{
             this.setState({
                 previewSource: uri || stream
@@ -49,6 +55,7 @@ class UIWebCam extends Component {
     }
     onCapture () {
         var img = new Image();
+
         img.src = this.helper.snapshot(this.refs.stage);
         document.body.appendChild(img);
     }
@@ -75,10 +82,11 @@ class UIWebCam extends Component {
     }
     static defaultProps = {
         mediaOptions: {
-            "audio": true,
+            "audio": false,
             "video": {
-                "height": 720,
-                "width": 1280
+                "facingMode": {
+                    "ideal": "environment"
+                }
             }
         }
     }

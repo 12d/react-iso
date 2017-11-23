@@ -1,4 +1,5 @@
 import Whammy from './WhammyNew';
+import CanvasRecorder from './CanvasRecorder';
 const states = {
     INACTIVE: 'inactive',
     RECORDING: 'recording',
@@ -6,7 +7,7 @@ const states = {
 };
 class MediaRecorder {
     constructor (stream, options, videoStage) {
-        console.log(stream, 'stream', options)
+
         this.init(options);
         this.videoStage = videoStage;
 
@@ -21,7 +22,8 @@ class MediaRecorder {
         this._canvas.width= this._video.width;
         this._canvas.height= this._video.height;
         this._canvasContext = this._canvas.getContext('2d');
-        this._recorder = new Whammy.Video();
+        // this._recorder = new Whammy.Video();
+        this._recorder = new CanvasRecorder();
     }
     init (options) {
        this.option = Object.assign({}, this.options, options);
