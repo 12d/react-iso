@@ -106,14 +106,14 @@ export default class WebCamHelper {
             xhr.send()
         })
     }
-    download (url) {
+    download (blob) {
 
         var a = document.createElement('a')
-        a.style.display = 'none'
-        a.href = url
-        a.download = 'test.webm'
+        a.style.display = 'none';
+        a.href = URL.createObjectURL(blob);
+        a.download = 'recorded.webm';
         document.body.appendChild(a)
-        a.click()
+        a.click();
     }
     releaseUserMedia () {
         this.live && this.live.getVideoTracks()[0].stop()
@@ -169,10 +169,10 @@ export default class WebCamHelper {
         if (this.__recordCompleteCallback){
             console.log(this._recorder.mimeType,'this._recorder.mimeType')
             let dataBlob = new Blob(this._recordChunks, {
-                type: 'video/webm'
-                // type: this._recorder.mimeType,
+                type: this._recorder.mimeType,
             })
             // cb(this.getStreamURI(dataBlob), dataBlob);
+
             WebCamHelper.blobToDataURL(dataBlob).then(rs=>{
                 this.__recordCompleteCallback(rs, dataBlob)
             })
