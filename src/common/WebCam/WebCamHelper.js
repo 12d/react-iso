@@ -2,7 +2,7 @@
  *
  * @type {{audio: boolean, video: {optional: [null,null,null,null,null]}}}
  */
-let MediaRecorder  = false && window.MediaRecorder || require("./MediaRecorder").default;
+let MediaRecorder  = window.MediaRecorder || require("./MediaRecorder").default;
 
 const mediaConstraints = {
     'audio': true,
@@ -55,9 +55,7 @@ var getCamera = (options) => isNewerVersion &&
         })
     });
 
-window.onerror=function(e){
-    alert(e)
-}
+
 const isSupported = !!(getCamera && window.URL && window.FileReader && MediaRecorder);
 
 var tempCanvas = document.createElement('canvas');
@@ -141,12 +139,11 @@ export default class WebCamHelper {
             height = video.height,
             width = video.width;
         if(!isNewerVersion) {
+            video = {};
             video.mandatory = {
-                "maxWidth": width,
-                "maxHeight": height
+                "maxWidth": width||480,
+                "maxHeight": height||640
             }
-            delete video.height;
-            delete video.width;
             options.video = video;
         }
 
@@ -170,8 +167,10 @@ export default class WebCamHelper {
     }
     _onRecordStop () {
         if (this.__recordCompleteCallback){
+            console.log(this._recorder.mimeType,'this._recorder.mimeType')
             let dataBlob = new Blob(this._recordChunks, {
-                type: this._recorder.mimeType,
+                type: 'video/webm'
+                // type: this._recorder.mimeType,
             })
             // cb(this.getStreamURI(dataBlob), dataBlob);
             WebCamHelper.blobToDataURL(dataBlob).then(rs=>{

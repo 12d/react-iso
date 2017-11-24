@@ -14,7 +14,7 @@ class UIWebCam extends Component {
                     this.state.previewSource ?
                         // @see https://webkit.org/blog/6784/new-video-policies-for-ios/
                         // ios 上必须加playsinline/muted/autoplay，否则ios上无法自动播放
-                        <video playsinline="true" muted={true} autoPlay={true} onError={this.videoOnError.bind(this)} controls={this.state.isPlayback} src={this.state.previewSource} height={videoOptions.height} width={videoOptions.width} ref="stage" />
+                        <video playsInline="true" id="video" muted={true} autoPlay={true} onError={this.videoOnError.bind(this)} controls={this.state.isPlayback} src={this.state.previewSource} height={320} width={640} ref="stage" />
                         : null
                 }
                 <button onClick={this.onCapture.bind(this)}>Capture</button>
@@ -27,6 +27,7 @@ class UIWebCam extends Component {
     }
     videoOnError (e) {
 
+        console.log(e)
     }
     constructor () {
         super();
@@ -49,7 +50,7 @@ class UIWebCam extends Component {
                 previewSource: uri || stream
             },()=>{
                 //safari 11中 MediaStream必须通过srcObject指定，而react 16 beta中无法通过setState设置srcObject
-                this.refs.stage.srcObject = stream;
+                !uri && (this.refs.stage.srcObject = stream);
             })
         })
     }
@@ -65,16 +66,23 @@ class UIWebCam extends Component {
     onStopRecord () {
         this.helper.stopRecord((uri,blob)=>{
             this.helper.releaseUserMedia();
+            this.refs.stage.srcObject=null;//清理srcObject,否则回访继续回从srcObject读取，导致设置src无效
 
             this.setState({
-                isPlayback: true
-                // src: uri //TODO: 这行导致UC开发版本闪退
+                isPlayback: true,
+                previewSource: uri //TODO: 这行导致UC开发版本闪退
             }, ()=>{
                 // 三星浏览器无法通过setState()来更新src，而chrome必须以setState
-                var video = this.refs.stage;
-                video.src=uri;
-                video.autoplay=true;
-                video.controls=true;
+                // var video = this.refs.stage;
+                // video.onerror=function(e){
+                //     console.log(e)
+                // }
+                //
+                // video.src=uri;
+                // video.autoplay=true;
+                // video.controls=true;
+                // document.body.appendChild(video)
+                console.log('update success')
             })
 
 
@@ -85,7 +93,7 @@ class UIWebCam extends Component {
             "audio": false,
             "video": {
                 "facingMode": {
-                    "ideal": "environment"
+                    "ideal": "user"
                 }
             }
         }

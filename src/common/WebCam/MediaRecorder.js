@@ -22,8 +22,8 @@ class MediaRecorder {
         this._canvas.width= this._video.width;
         this._canvas.height= this._video.height;
         this._canvasContext = this._canvas.getContext('2d');
-        // this._recorder = new Whammy.Video();
-        this._recorder = new CanvasRecorder();
+        this._recorder = new Whammy.Video();
+        // this._recorder = new CanvasRecorder();
     }
     init (options) {
        this.option = Object.assign({}, this.options, options);
