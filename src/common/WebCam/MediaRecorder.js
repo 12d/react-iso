@@ -1,5 +1,5 @@
 import Whammy from './WhammyNew';
-import CanvasRecorder from './CanvasRecorder';
+
 const states = {
     INACTIVE: 'inactive',
     RECORDING: 'recording',
